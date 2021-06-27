@@ -1,6 +1,8 @@
 <?php
-use App\Http\Controllers\HospitalController;
-use App\Http\Controllers\AuthController;
+use App\Modules\User\Controllers\HospitalController;
+use App\Modules\User\Controllers\AuthController;
+use App\Modules\User\Controllers\SpecialtyController;
+use App\Modules\User\Controllers\DoctorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,8 +20,12 @@ use Illuminate\Support\Facades\Route;
 //Public route
 Route::get('/hospitals', [HospitalController::class, 'index']);
 Route::get('/hospitals/{id}', [HospitalController::class, 'show']);
-Route::get('/hospitals/search/{name}', [HospitalController::class,'search']);
 
+Route::get('/specialties',  [SpecialtyController::class, 'index']);
+Route::get('/specialties/{id}',  [SpecialtyController::class, 'show']);
+
+Route::get('/doctors',  [DoctorController::class, 'index']);
+Route::get('/doctors/{id}',  [DoctorController::class, 'show']);
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -29,6 +35,15 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::post('/hospitals',  [HospitalController::class, 'store']);
     Route::put('/hospitals/{id}',  [HospitalController::class, 'update']);
     Route::delete('/hospitals/{id}',  [HospitalController::class, 'destroy']);
+
+    Route::post('/specialties',  [SpecialtyController::class, 'store']);
+    Route::put('/specialties/{id}',  [SpecialtyController::class, 'update']);
+    Route::delete('/specialties/{id}',  [SpecialtyController::class, 'destroy']);
+
+    Route::post('/doctors',  [DoctorController::class, 'store']);
+    Route::put('/doctors/{id}',  [DoctorController::class, 'update']);
+    Route::delete('/doctors/{id}',  [DoctorController::class, 'destroy']);
+
     Route::post('/logout',  [AuthController::class, 'logout']);
 });
 
